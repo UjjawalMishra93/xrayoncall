@@ -135,20 +135,18 @@ function Navbar({ onBookClick }: { onBookClick: () => void }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Large Free Logo (No Border) */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shrink-0">
+          <Link href="/" className="flex items-center group">
+            <div className="relative w-48 h-24 sm:w-56 sm:h-28 flex items-center justify-center shrink-0">
               <Image
-                src="/logofinal.png"
+                src="/logo2.png"
                 alt="XrayOnCall Logo"
-                width={64}
-                height={64}
+                width={707}
+                height={353}
                 className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm"
                 priority
+                unoptimized
               />
             </div>
-            <span className="text-2xl font-extrabold text-gray-900 tracking-tight">
-              Xray<span className="text-blue-600">OnCall</span>
-            </span>
           </Link>
 
           {/* Desktop Nav */}
@@ -261,13 +259,8 @@ function HeroSection({ onBookClick }: { onBookClick: () => void }) {
             {/* Headline */}
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-gray-900 leading-[1.08] tracking-tight">
-                X-ray at Home.
-              </h1>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tight mt-2">
-                Care{" "}
-                <span className="text-blue-600">Without</span>
-                <br className="hidden sm:block" />
-                <span className="text-blue-600"> the Commute.</span>
+                Diagnostics at Your{" "}
+                <span className="text-blue-600">Doorstep.</span>
               </h1>
             </div>
 
@@ -552,11 +545,11 @@ function ServiceAreaChecker({ onBookClick }: { onBookClick: (scan?: string) => v
   const locations = [
     {
       id: "delhi",
-      city: "Delhi HQ (Sonia Vihar)",
+      city: "Delhi HQ (Lajpat Nagar)",
       badge: "Main Headquarters",
-      address: "5th Pusta, Sonia Vihar, New Delhi - 110094",
+      address: "Roxy Chowk, Lajpat Nagar 2, New Delhi - 110024",
       coverage: "Serving Entire Delhi NCR (Central, North, South, East & West)",
-      query: "5th Pusta, Sonia Vihar, New Delhi, Delhi 110094",
+      query: "Roxy Chowk, Lajpat Nagar 2, New Delhi, Delhi 110024",
     },
     {
       id: "gurgaon",
@@ -567,12 +560,12 @@ function ServiceAreaChecker({ onBookClick }: { onBookClick: (scan?: string) => v
       query: "Sector 33, Gurgaon, Haryana 122001",
     },
     {
-      id: "noida",
-      city: "Noida Hub",
+      id: "ghaziabad",
+      city: "Ghaziabad Hub",
       badge: "UP Dispatch",
-      address: "Sector 62, Noida, Uttar Pradesh 201309",
-      coverage: "Noida, Greater Noida & Expressway",
-      query: "Sector 62, Noida, Uttar Pradesh 201309",
+      address: "Raj Nagar Extension, Ghaziabad, Uttar Pradesh 201017",
+      coverage: "Ghaziabad, Raj Nagar, Indirapuram & Vasundhara",
+      query: "Raj Nagar Extension, Ghaziabad, Uttar Pradesh 201017",
     },
   ];
   const [activeLoc, setActiveLoc] = useState(locations[0]);
@@ -604,12 +597,12 @@ function ServiceAreaChecker({ onBookClick }: { onBookClick: (scan?: string) => v
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
               {/* Left: Free Logo where location sign was */}
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 relative flex items-center justify-center shrink-0">
+                <div className="w-36 h-12 sm:w-40 sm:h-14 relative flex items-center justify-center shrink-0">
                   <Image
-                    src="/logofinal.png"
+                    src="/logo2.png"
                     alt="Xray on Call Logo"
-                    width={64}
-                    height={64}
+                    width={707}
+                    height={353}
                     className="w-full h-full object-contain drop-shadow-md"
                     priority
                   />
@@ -1190,18 +1183,14 @@ function Footer() {
 
             {/* Diagnostic Brand Badge with Large Free Logo */}
             <div className="flex items-center gap-3.5 mb-6">
-              <div className="relative w-14 h-14 shrink-0 flex items-center justify-center">
+              <div className="relative w-40 h-14 shrink-0 flex items-center justify-center">
                 <Image
-                  src="/logofinal.png"
+                  src="/logo2.png"
                   alt="XrayOnCall Logo"
-                  width={56}
-                  height={56}
+                  width={707}
+                  height={353}
                   className="w-full h-full object-contain"
                 />
-              </div>
-              <div>
-                <p className="text-white font-extrabold text-base tracking-tight uppercase">Xray On Call</p>
-                <p className="text-xs text-blue-300 font-medium">Doorstep Portable Diagnostics</p>
               </div>
             </div>
 
@@ -1310,17 +1299,17 @@ function Footer() {
                   <MapPinIcon className="w-4 h-4" />
                 </div>
                 <div className="leading-relaxed">
-                  <span className="text-white font-semibold">Main HQ:</span> 5th Pusta, Sonia Vihar, New Delhi - 110094
+                  <span className="text-white font-semibold">Main HQ:</span> Roxy Chowk, Lajpat Nagar 2, New Delhi - 110024
                 </div>
               </div>
 
-              {/* Address 2: Gurgaon & Noida */}
+              {/* Address 2: Sonia Vihar */}
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded border border-gray-600 bg-gray-800/80 flex items-center justify-center shrink-0 mt-0.5 text-blue-400">
                   <MapPinIcon className="w-4 h-4" />
                 </div>
                 <div className="leading-relaxed">
-                  <span className="text-white font-semibold">Address:</span> Sector 33, Gurgaon & Sector 62, Noida, NCR
+                  <span className="text-white font-semibold">Address:</span> 5th Pusta, Sonia Vihar, New Delhi - 110094
                 </div>
               </div>
 
