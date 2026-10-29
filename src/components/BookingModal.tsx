@@ -119,56 +119,56 @@ export default function BookingModal({
   ];
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
       {/* ── Morphing Backdrop with Blur ── */}
       <div
         onClick={resetAndClose}
         className="fixed inset-0 bg-slate-950/70 backdrop-blur-md transition-opacity duration-300 animate-fadeIn"
       />
 
-      {/* ── Morphing Modal Container ── */}
-      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden z-10 my-auto transform transition-all duration-300 animate-morphModal">
+      {/* ── Morphing Modal Container with Smooth Scroll ── */}
+      <div className="relative w-full max-w-xl max-h-[92vh] bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-gray-100 overflow-y-auto z-10 my-auto transform transition-all duration-300 animate-morphModal">
         
         {/* Top Gradient Accent Bar */}
-        <div className="h-2 bg-gradient-to-r from-blue-600 via-sky-500 to-blue-700" />
+        <div className="h-1.5 sm:h-2 bg-gradient-to-r from-blue-600 via-sky-500 to-blue-700 sticky top-0 z-30" />
 
         {/* Close Button */}
         <button
           onClick={resetAndClose}
-          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-gray-500 hover:text-gray-800 flex items-center justify-center transition-all hover:rotate-90 duration-200 z-20"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-gray-500 hover:text-gray-800 flex items-center justify-center transition-all hover:rotate-90 duration-200 z-20 cursor-pointer"
           aria-label="Close dialog"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         {submitted ? (
           /* ── Morphing Success Card ── */
-          <div className="p-8 sm:p-10 text-center animate-fadeIn">
-            <div className="relative mx-auto w-20 h-20 mb-6">
+          <div className="p-6 sm:p-10 text-center animate-fadeIn">
+            <div className="relative mx-auto w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6">
               <div className="absolute inset-0 rounded-full bg-emerald-100 animate-ping opacity-75" />
-              <div className="relative w-20 h-20 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200">
-                <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200">
+                <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
             </div>
 
-            <div className="inline-block bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+            <div className="inline-block bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider mb-2.5">
               Booking Dispatched to Clinic
             </div>
 
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0a2540] tracking-tight mb-3">
+            <h3 className="text-xl sm:text-3xl font-extrabold text-[#0a2540] tracking-tight mb-2 sm:mb-3">
               We&apos;re On Our Way!
             </h3>
 
-            <p className="text-sm text-gray-600 max-w-md mx-auto leading-relaxed mb-6">
+            <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed mb-5 sm:mb-6">
               Thank you, <strong className="text-gray-900">{fullName}</strong>. Your at-home <strong className="text-blue-600">{xrayType}</strong> request has been dispatched directly to the medical team at <span className="font-semibold text-gray-800">Xrayoncall16@gmail.com</span>.
             </p>
 
             {/* Quick Dispatch Summary Box */}
-            <div className="bg-slate-50 rounded-2xl p-4 border border-gray-100 text-left text-xs text-gray-600 space-y-2 mb-6">
+            <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-3.5 sm:p-4 border border-gray-100 text-left text-xs text-gray-600 space-y-1.5 sm:space-y-2 mb-5 sm:mb-6">
               <div className="flex justify-between">
                 <span className="text-gray-400">Patient Phone:</span>
                 <span className="font-bold text-gray-800">{phone}</span>
@@ -187,20 +187,20 @@ export default function BookingModal({
               </div>
             </div>
 
-            <div className="bg-blue-50 border border-blue-100 text-blue-800 text-xs rounded-xl p-3 mb-6">
+            <div className="bg-blue-50 border border-blue-100 text-blue-800 text-[11px] sm:text-xs rounded-xl p-3 mb-5 sm:mb-6">
               ⚡ <strong>Next Step:</strong> Our dispatch doctor will call you on <strong>{phone}</strong> within <strong>5 minutes</strong> to confirm technician ETA.
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
               <a
                 href="tel:+919205761556"
-                className="flex-1 py-3.5 px-6 rounded-full bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors shadow-md flex items-center justify-center gap-2"
+                className="flex-1 py-3 sm:py-3.5 px-6 rounded-full bg-blue-600 text-white font-bold text-xs sm:text-sm hover:bg-blue-700 transition-colors shadow-md flex items-center justify-center gap-2"
               >
                 📞 Call Team (9205761556)
               </a>
               <button
                 onClick={resetAndClose}
-                className="py-3.5 px-6 rounded-full bg-gray-100 text-gray-700 font-semibold text-sm hover:bg-gray-200 transition-colors"
+                className="py-3 sm:py-3.5 px-6 rounded-full bg-gray-100 text-gray-700 font-semibold text-xs sm:text-sm hover:bg-gray-200 transition-colors cursor-pointer"
               >
                 Close
               </button>
@@ -208,10 +208,10 @@ export default function BookingModal({
           </div>
         ) : (
           /* ── Registration Form ── */
-          <div className="p-6 sm:p-8">
+          <div className="p-4 sm:p-7 md:p-8">
             {/* Header */}
-            <div className="mb-6 flex items-start gap-4">
-              <div className="relative w-14 h-14 shrink-0 flex items-center justify-center">
+            <div className="mb-5 sm:mb-6 flex items-start gap-3 sm:gap-4 pr-6 sm:pr-0">
+              <div className="relative w-11 h-11 sm:w-14 sm:h-14 shrink-0 flex items-center justify-center">
                 <Image
                   src="/logofinal.png"
                   alt="XrayOnCall Logo"
@@ -221,40 +221,40 @@ export default function BookingModal({
                 />
               </div>
               <div>
-                <div className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-100 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider mb-1">
+                <div className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-100 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                   <span>Doorstep Diagnostic Booking</span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-[#0a2540] tracking-tight">
+                <h2 className="text-lg sm:text-2xl font-extrabold text-[#0a2540] tracking-tight">
                   Book At-Home X-Ray
                 </h2>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5">
                   Certified radiology technician visits your home with portable digital gear.
                 </p>
               </div>
             </div>
 
             {error && (
-              <div className="mb-5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold flex items-center gap-2 animate-shake">
+              <div className="mb-4 sm:mb-5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold flex items-center gap-2 animate-shake">
                 <span>⚠️</span> {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
               {/* Select Scan Type Pills */}
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
+                <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5 sm:mb-2">
                   Select Prescribed Scan
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
                   {scanOptions.map((scan) => (
                     <button
                       key={scan}
                       type="button"
                       onClick={() => setXrayType(scan)}
-                      className={`text-xs py-2 px-3 rounded-xl font-semibold border transition-all text-left truncate ${
+                      className={`text-xs py-2 px-2.5 sm:px-3 rounded-xl font-semibold border transition-all text-left truncate cursor-pointer ${
                         xrayType === scan
-                          ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                          ? "bg-blue-600 text-white border-blue-600 shadow-xs"
                           : "bg-slate-50 text-gray-700 border-gray-200 hover:border-blue-300"
                       }`}
                     >
@@ -265,7 +265,7 @@ export default function BookingModal({
               </div>
 
               {/* Full Name & Phone Number */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                 <div>
                   <label className="block text-xs font-bold text-gray-700 mb-1">
                     Patient Name <span className="text-red-500">*</span>
@@ -276,7 +276,7 @@ export default function BookingModal({
                     placeholder="e.g. Ramesh Sharma"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-900 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder-gray-400"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-900 text-base sm:text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder-gray-400"
                   />
                 </div>
 
@@ -294,7 +294,7 @@ export default function BookingModal({
                       placeholder="98765 43210"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full pl-12 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-900 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder-gray-400"
+                      className="w-full pl-12 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-900 text-base sm:text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder-gray-400"
                     />
                   </div>
                 </div>
@@ -311,7 +311,7 @@ export default function BookingModal({
                       key={c}
                       type="button"
                       onClick={() => setCity(c)}
-                      className={`text-xs px-3 py-1.5 rounded-lg font-medium border transition-colors ${
+                      className={`text-xs px-2.5 sm:px-3 py-1.5 rounded-lg font-medium border transition-colors cursor-pointer ${
                         city === c
                           ? "bg-slate-900 text-white border-slate-900"
                           : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
@@ -333,7 +333,7 @@ export default function BookingModal({
                   placeholder="House/Flat No., Street, Landmark"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-900 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder-gray-400"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-900 text-base sm:text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder-gray-400"
                 />
               </div>
 
@@ -345,7 +345,7 @@ export default function BookingModal({
                 <select
                   value={timeSlot}
                   onChange={(e) => setTimeSlot(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-800 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-800 text-base sm:text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all bg-white"
                 >
                   {timeSlots.map((slot) => (
                     <option key={slot} value={slot}>
@@ -356,8 +356,8 @@ export default function BookingModal({
               </div>
 
               {/* Prescription Check */}
-              <div className="pt-1">
-                <label className="flex items-center gap-2 cursor-pointer text-xs text-gray-600">
+              <div className="pt-0.5">
+                <label className="flex items-start gap-2 cursor-pointer text-xs text-gray-600">
                   <input
                     type="checkbox"
                     checked={prescriptionStatus.includes("have")}
@@ -368,31 +368,31 @@ export default function BookingModal({
                           : "Need prescription consultation"
                       )
                     }
-                    className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                    className="w-4 h-4 mt-0.5 text-blue-600 rounded border-gray-300 focus:ring-blue-500 shrink-0"
                   />
                   <span>I have a doctor&apos;s prescription ready (or will share via WhatsApp)</span>
                 </label>
               </div>
 
               {/* Dispatch Info */}
-              <div className="bg-slate-50 p-2.5 rounded-xl border border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
+              <div className="bg-slate-50 p-2 sm:p-2.5 rounded-xl border border-gray-100 flex flex-col xs:flex-row xs:items-center justify-between text-[10px] sm:text-[11px] text-gray-500 gap-1">
                 <span>📧 Instant notification routed to:</span>
-                <span className="font-mono text-gray-700 font-semibold">Xrayoncall16@gmail.com</span>
+                <span className="font-mono text-gray-700 font-semibold break-all">Xrayoncall16@gmail.com</span>
               </div>
 
               {/* Submit Button with Morph Animation */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-full bg-blue-600 text-white font-extrabold text-sm sm:text-base hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 hover:shadow-xl hover:-translate-y-0.5 transform disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
+                className="w-full py-3.5 sm:py-4 rounded-full bg-blue-600 text-white font-extrabold text-xs sm:text-base hover:bg-blue-700 transition-all shadow-md shadow-blue-200 hover:shadow-lg hover:-translate-y-0.5 transform disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2 cursor-pointer"
               >
                 {loading ? (
                   <>
-                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-4 sm:w-5 h-4 sm:h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
-                    <span>Dispatching to Xrayoncall16@gmail.com...</span>
+                    <span>Dispatching booking...</span>
                   </>
                 ) : (
                   <>
