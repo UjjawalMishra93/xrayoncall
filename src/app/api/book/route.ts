@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const recipientEmail = "Xrayoncall16@gmail.com";
+    const recipientEmail = process.env.RECIPIENT_EMAIL || "Xrayoncall16@gmail.com";
     const timestamp = new Date().toLocaleString("en-IN", {
       timeZone: "Asia/Kolkata",
     });
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
         <div style="padding: 24px 28px;">
           <div style="background: #eff6ff; border-left: 4px solid #2563eb; padding: 12px 16px; margin-bottom: 20px; border-radius: 4px;">
             <p style="margin: 0; font-weight: bold; color: #1e3a8a; font-size: 15px;">
-              🚨 Action Required: Patient requested immediate at-home scan.
+              🚨 Action Required: New At-Home Scan Booking Received.
             </p>
             <p style="margin: 4px 0 0; font-size: 13px; color: #3b82f6;">
               Received on: <strong>${timestamp} IST</strong>
@@ -101,46 +101,72 @@ export async function POST(req: Request) {
       </div>
     `;
 
-    // Check if SMTP environment variables are set
+    // Check if SMTP environment variables are configured
     const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
-    const smtpPass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+    const rawPass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+    const smtpPass = rawPass ? rawPass.replace(/\s+/g, "") : "";
 
-    if (smtpUser && smtpPass) {
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-      });
+    let emailSent = false;
+    let emailStatusMessage = "";
 
-      await transporter.sendMail({
-        from: `"XrayOnCall Booking" <${smtpUser}>`,
-        to: recipientEmail,
-        replyTo: recipientEmail,
-        subject: `🚨 New At-Home X-Ray Booking: ${fullName} (${city || "Delhi NCR"}) - ${phone}`,
-        html: emailHtml,
-      });
+    const hasValidConfig =
+      Boolean(smtpUser) &&
+      Boolean(smtpPass) &&
+      !smtpPass.includes("your-16-character") &&
+      smtpPass.length >= 8;
 
-      console.log(`[XrayOnCall] Email successfully dispatched to ${recipientEmail}`);
+    if (hasValidConfig) {
+      try {
+        const transporter = nodemailer.createTransport({
+          host: process.env.SMTP_HOST || "smtp.gmail.com",
+          port: Number(process.env.SMTP_PORT) || 465,
+          secure: true,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+          connectionTimeout: 10000,
+          greetingTimeout: 10000,
+          socketTimeout: 15000,
+        });
+
+        await transporter.sendMail({
+          from: `"XrayOnCall Booking" <${smtpUser}>`,
+          to: recipientEmail,
+          replyTo: recipientEmail,
+          subject: `🚨 New At-Home X-Ray Booking: ${fullName} (${city || "Delhi NCR"}) - ${phone}`,
+          html: emailHtml,
+        });
+
+        emailSent = true;
+        emailStatusMessage = `Email successfully dispatched to ${recipientEmail}`;
+        console.log(`[XrayOnCall] ${emailStatusMessage}`);
+      } catch (mailError: any) {
+        console.error("[XrayOnCall Mail Error]: Failed to send email via SMTP:", mailError);
+        emailSent = false;
+        emailStatusMessage = `SMTP error: ${mailError?.message || "Mail dispatch failed"}`;
+      }
     } else {
-      // In development or when SMTP credentials are not yet configured,
-      // we log the complete payload and return success so the patient is never blocked!
-      console.log("=========================================");
-      console.log(`[XrayOnCall NEW BOOKING NOTIFICATION]`);
-      console.log(`To: ${recipientEmail}`);
-      console.log(`Patient: ${fullName} (${phone})`);
-      console.log(`City: ${city}`);
-      console.log(`Address: ${address}`);
-      console.log(`Scan: ${xrayType}`);
-      console.log(`Slot: ${timeSlot}`);
-      console.log(`Prescription: ${prescriptionStatus}`);
-      console.log("=========================================");
+      console.warn("===============================================================");
+      console.warn(`[XrayOnCall Email Notice]: SMTP credentials not configured.`);
+      console.warn(`To deliver dispatches directly to ${recipientEmail}:`);
+      console.warn(`1. Open .env.local`);
+      console.warn(`2. Set SMTP_USER=Xrayoncall16@gmail.com`);
+      console.warn(`3. Set SMTP_PASS=your 16-character Gmail App Password`);
+      console.warn(`(Get App Password at: https://myaccount.google.com/apppasswords)`);
+      console.warn(`---------------------------------------------------------------`);
+      console.warn(`Booking logged on server for: ${fullName} (${phone}), Slot: ${timeSlot}`);
+      console.warn("===============================================================");
+      emailStatusMessage = "SMTP credentials not configured in .env.local";
     }
 
     return NextResponse.json({
       success: true,
-      message: `Booking request received! Our medical dispatch team will call you within 5 minutes. Details sent to ${recipientEmail}.`,
+      emailSent,
+      emailStatus: emailStatusMessage,
+      message: emailSent
+        ? `Booking request received! Details sent to ${recipientEmail}.`
+        : `Booking request recorded! Medical dispatch team will follow up on ${phone}.`,
       data: {
         fullName,
         phone,
