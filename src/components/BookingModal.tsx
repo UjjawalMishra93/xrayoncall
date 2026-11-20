@@ -108,6 +108,7 @@ export default function BookingModal({
   const cities = ["Gurgaon", "Delhi", "Noida", "Faridabad", "Ghaziabad", "Other NCR"];
   const scanOptions = [
     "Chest X-ray",
+    "12-Lead ECG at Home",
     "Limb & Joint X-rays",
     "Spine X-ray",
     "Other Prescribed Scans",
@@ -119,13 +120,14 @@ export default function BookingModal({
     "Tomorrow (Scheduled)",
   ];
 
+  const isEcg = xrayType?.toLowerCase().includes("ecg");
   const whatsappBookingMessage = encodeURIComponent(
-    `*🚨 New Doorstep X-Ray Booking*\n\n` +
+    `*🚨 New Doorstep ${isEcg ? "ECG" : "X-Ray"} Booking*\n\n` +
       `*Patient Name:* ${fullName}\n` +
       `*Phone:* ${phone}\n` +
       `*City:* ${city}\n` +
       `*Address:* ${address || "To be shared on call"}\n` +
-      `*Scan:* ${xrayType}\n` +
+      `*Test / Scan:* ${xrayType}\n` +
       `*Preferred Slot:* ${timeSlot}\n` +
       `*Prescription:* ${prescriptionStatus}\n` +
       (notes ? `*Notes:* ${notes}\n` : "")
@@ -262,10 +264,12 @@ export default function BookingModal({
                   <span>Doorstep Diagnostic Booking</span>
                 </div>
                 <h2 className="text-lg sm:text-2xl font-extrabold text-[#0a2540] tracking-tight">
-                  Book At-Home X-Ray
+                  {isEcg ? "Book At-Home 12-Lead ECG" : "Book At-Home X-Ray"}
                 </h2>
                 <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5">
-                  Certified radiology technician visits your home with portable digital gear.
+                  {isEcg
+                    ? "Certified cardiac technician visits your home with portable 12-lead ECG gear."
+                    : "Certified radiology technician visits your home with portable digital gear."}
                 </p>
               </div>
             </div>

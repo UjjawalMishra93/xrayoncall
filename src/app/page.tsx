@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import BookingModal from "@/components/BookingModal";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 // ─── ICON COMPONENTS ───────────────────────────────────────────────────────────
 function PhoneIcon({ className }: { className?: string }) {
@@ -122,140 +124,6 @@ function XrayIcon({ className }: { className?: string }) {
       <line x1="25" y1="27" x2="55" y2="53" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round" />
       <line x1="55" y1="27" x2="25" y2="53" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
-  );
-}
-
-// ─── NAVBAR ────────────────────────────────────────────────────────────────────
-function Navbar({ onBookClick }: { onBookClick: () => void }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const navLinks = ["Home", "Our Services", "How It Works", "Service Locations", "Service Areas", "FAQs"];
-
-  return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[4.25rem] sm:h-20">
-          {/* Brand Logo */}
-          <Link href="/" className="flex items-center group shrink-0">
-            <div className="relative w-44 h-13 xs:w-48 xs:h-14 sm:w-52 sm:h-16 flex items-center justify-start">
-              <Image
-                src="/logo2.png"
-                alt="XrayOnCall Logo"
-                width={707}
-                height={353}
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-xs"
-                priority
-                unoptimized
-              />
-            </div>
-          </Link>
-
-          {/* Desktop Nav - Visible on Laptop & Desktop (lg+) */}
-          <div className="hidden lg:flex items-center gap-5 xl:gap-8">
-            {navLinks.map((item) => (
-              <Link
-                key={item}
-                href={`#${item.toLowerCase().replace(/ /g, "-")}`}
-                className="text-sm font-semibold text-gray-600 hover:text-blue-600 transition-colors relative group py-1"
-              >
-                {item}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
-          </div>
-
-          {/* CTA Buttons - Laptop & Desktop (lg+) */}
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              href="tel:+919205761556"
-              className="relative flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-4 xl:px-5 py-2.5 rounded-full text-xs xl:text-sm font-bold hover:from-blue-700 hover:to-blue-600 transition-all shadow-md shadow-blue-200 hover:-translate-y-0.5 transform group"
-            >
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
-              </span>
-              <PhoneIcon className="w-4 h-4" />
-              <span className="tracking-wide">9205761556</span>
-            </a>
-            <button
-              onClick={onBookClick}
-              className="flex items-center gap-2 bg-blue-600 text-white px-4 xl:px-5 py-2.5 rounded-full text-xs xl:text-sm font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg cursor-pointer"
-            >
-              Book an X-ray
-              <ArrowRightIcon className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* Tablet Quick Action CTA (md to lg) */}
-          <div className="hidden sm:flex lg:hidden items-center gap-2.5">
-            <a
-              href="tel:+919205761556"
-              className="flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-200/80 px-3.5 py-2 rounded-full text-xs font-bold hover:bg-blue-100 transition-colors"
-            >
-              <PhoneIcon className="w-3.5 h-3.5 text-blue-600" />
-              <span>Call 9205761556</span>
-            </a>
-            <button
-              onClick={onBookClick}
-              className="flex items-center gap-1.5 bg-blue-600 text-white px-3.5 py-2 rounded-full text-xs font-bold hover:bg-blue-700 transition-colors shadow-xs"
-            >
-              <span>Book</span>
-              <ArrowRightIcon className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          {/* Mobile & Tablet Hamburger (below lg) */}
-          <button
-            className="lg:hidden p-2.5 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors focus:outline-hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle navigation menu"
-            aria-expanded={menuOpen}
-          >
-            <div className="w-6 h-5 flex flex-col justify-between">
-              <span className={`block h-0.5 bg-gray-700 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-              <span className={`block h-0.5 bg-gray-700 transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
-              <span className={`block h-0.5 bg-gray-700 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2.5" : ""}`} />
-            </div>
-          </button>
-        </div>
-
-        {/* Mobile & Tablet Dropdown Menu */}
-        {menuOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-100 space-y-1 animate-fadeIn">
-            {navLinks.map((item) => (
-              <Link
-                key={item}
-                href={`#${item.toLowerCase().replace(/ /g, "-")}`}
-                className="block text-sm font-semibold text-gray-700 hover:text-blue-600 hover:bg-blue-50/80 px-4 py-3 rounded-xl transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                {item}
-              </Link>
-            ))}
-            <div className="flex flex-col sm:flex-row gap-2.5 pt-3 px-2 border-t border-gray-100 mt-2">
-              <a
-                href="tel:+919205761556"
-                className="relative flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-4 py-3 rounded-xl text-sm font-bold shadow-sm shadow-blue-200"
-              >
-                <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
-                </span>
-                <PhoneIcon className="w-4 h-4" /> 9205761556
-              </a>
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  onBookClick();
-                }}
-                className="flex-1 flex items-center justify-center gap-2 bg-blue-700 text-white px-4 py-3 rounded-xl text-sm font-bold shadow-xs cursor-pointer"
-              >
-                Book an X-ray <ArrowRightIcon className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
   );
 }
 
@@ -417,6 +285,95 @@ function HeroSection({ onBookClick }: { onBookClick: () => void }) {
 
       </div>
     </section>
+  );
+}
+
+// ─── MARQUEE STRIP ─────────────────────────────────────────────────────────────
+function MarqueeStrip() {
+  const items = [
+    "PRE-OPERATIVE CARDIAC CLEARANCE",
+    "24H & 48H HOLTER MONITORING",
+    "SENIOR CITIZEN BEDSIDE CARE",
+    "15-MINUTE VERIFIED DIGITAL REPORT",
+    "ATOMIC ENERGY CERTIFIED SAFETY",
+    "ZERO HOSPITAL COMMUTE",
+    "DOORSTEP DISPATCH",
+    "SAME-DAY X-RAY AT HOME",
+    "REPORTS WITHIN 20 MINUTES",
+    "SERVING ALL DELHI NCR",
+  ];
+
+  // Duplicate for seamless loop
+  const doubled = [...items, ...items];
+
+  return (
+    <div className="bg-[#1a3fdb] overflow-hidden py-3 select-none">
+      <div className="flex w-max animate-marquee-strip whitespace-nowrap">
+        {doubled.map((item, i) => (
+          <span key={i} className="inline-flex items-center gap-3 mx-6">
+            <span className="text-white font-bold text-xs sm:text-sm tracking-widest uppercase">
+              {item}
+            </span>
+            <svg
+              className="w-3 h-3 text-blue-200 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── MARQUEE STRIP REVERSE ─────────────────────────────────────────────────────
+function MarqueeStripReverse() {
+  const items = [
+    "ZERO HOSPITAL COMMUTE",
+    "DOORSTEP DISPATCH",
+    "12-LEAD ECG AT HOME",
+    "SAME-DAY X-RAY AT HOME",
+    "REPORTS WITHIN 20 MINUTES",
+    "SERVING ALL DELHI NCR",
+    "PRE-OPERATIVE CARDIAC CLEARANCE",
+    "24H & 48H HOLTER MONITORING",
+    "SENIOR CITIZEN BEDSIDE CARE",
+    "15-MINUTE VERIFIED DIGITAL REPORT",
+  ];
+
+  const doubled = [...items, ...items];
+
+  return (
+    <div className="bg-[#1a3fdb] overflow-hidden py-3 select-none">
+      <div style={{ display: "flex", width: "max-content", animation: "marquee 35s linear infinite reverse", willChange: "transform" }} className="whitespace-nowrap">
+        {doubled.map((item, i) => (
+          <span key={i} className="inline-flex items-center gap-3 mx-6">
+            <svg
+              className="w-3 h-3 text-blue-200 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+            <span className="text-white font-bold text-xs sm:text-sm tracking-widest uppercase">
+              {item}
+            </span>
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -725,14 +682,25 @@ function ServiceLocations({ onBookClick }: { onBookClick: () => void }) {
             </div>
 
             <div className="mt-6 sm:mt-8 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 sm:gap-3">
-              {activeAreas.map((area) => (
-                <div
-                  key={area}
-                  className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 px-3 sm:px-4 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold text-blue-600 text-center shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-200 break-words"
-                >
-                  {area}
-                </div>
-              ))}
+              {activeAreas.map((area) => {
+                const slug = area
+                  .split(",")[0]
+                  .toLowerCase()
+                  .replace(/[()]/g, "")
+                  .replace(/&/g, "and")
+                  .trim()
+                  .replace(/\s+/g, "-");
+                return (
+                  <Link
+                    key={area}
+                    href={`/service-areas/${slug}`}
+                    className="group bg-white rounded-xl sm:rounded-2xl border border-gray-200 px-3 sm:px-4 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold text-blue-600 text-center shadow-xs hover:shadow-md hover:border-blue-400 hover:bg-blue-50/50 transition-all duration-200 break-words flex items-center justify-center gap-1.5"
+                  >
+                    <span>{area}</span>
+                    <span className="text-blue-400 group-hover:text-blue-700 transition-colors">→</span>
+                  </Link>
+                );
+              })}
             </div>
 
             {/* CTA */}
@@ -1383,258 +1351,6 @@ function FAQSection() {
   );
 }
 
-// ─── FOOTER ────────────────────────────────────────────────────────────────────
-function Footer() {
-  return (
-    <footer className="w-full">
-      {/* ── Main Dark Footer ── */}
-      <div className="bg-[#262626] text-gray-300 py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
-          
-          {/* Column 1: Our Facilities */}
-          <div>
-            <div className="mb-5 sm:mb-6">
-              <h3 className="text-white font-bold text-base sm:text-lg pb-1.5 relative inline-block">
-                Our Facilities
-                <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-blue-500 rounded-full" />
-              </h3>
-            </div>
-
-            {/* Diagnostic Brand Badge with Large Free Logo */}
-            <div className="flex items-center gap-3.5 mb-5 sm:mb-6">
-              <div className="relative w-36 h-12 sm:w-40 sm:h-14 shrink-0 flex items-center justify-start">
-                <Image
-                  src="/logo2.png"
-                  alt="XrayOnCall Logo"
-                  width={707}
-                  height={353}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </div>
-
-            <ul className="space-y-2 text-xs">
-              {[
-                "Home X-Ray",
-                "ECG at Home",
-                "ABG Test at Home",
-                "Holter Monitoring at Home",
-                "EMG Test at Home",
-                "NCV Test at Home",
-                "Digital X-Ray",
-                "ABPM Test at Home",
-                "Sleep Study Test at Home",
-                "ELR Test at Home",
-              ].map((item) => (
-                <li key={item} className="border-b border-gray-700/40 pb-2">
-                  <a href="#booking" className="hover:text-blue-400 transition-colors block text-gray-300">
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 2: Local Areas */}
-          <div>
-            <div className="mb-5 sm:mb-6">
-              <h3 className="text-white font-bold text-base sm:text-lg pb-1.5 relative inline-block">
-                Local Areas
-                <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-blue-500 rounded-full" />
-              </h3>
-            </div>
-            <ul className="space-y-2 text-xs">
-              {[
-                "Home X-Ray Delhi",
-                "Home X-Ray Gurgaon",
-                "Home X-Ray Noida",
-                "Home X-Ray Faridabad",
-                "Home X-Ray Ghaziabad",
-                "Home X-Ray Greater Noida",
-                "Home X-Ray in Sonipat",
-                "Home X-Ray in Panipat",
-                "Home X-Ray in Bahadurgarh",
-                "Home X-Ray in Jhajjar",
-                "Home X-Ray in Manesar",
-                "Home X-Ray in Rewari",
-                "Home X-Ray in Bhiwadi",
-              ].map((loc) => (
-                <li key={loc} className="border-b border-gray-700/40 pb-2">
-                  <a href="#service-areas" className="hover:text-blue-400 transition-colors block text-gray-300">
-                    {loc}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3: More Areas */}
-          <div>
-            <div className="mb-5 sm:mb-6">
-              <h3 className="text-white font-bold text-base sm:text-lg pb-1.5 relative inline-block">
-                More Areas
-                <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-blue-500 rounded-full" />
-              </h3>
-            </div>
-            <ul className="space-y-2 text-xs">
-              {[
-                "Home X-Ray in East of Kailash",
-                "Home X-Ray in Kailash Colony",
-                "Home X-Ray in Greater Kailash 1",
-                "Home X-Ray in Greater Kailash 2",
-                "Home X-Ray in Nehru Place",
-                "Home X-Ray in Kalkaji",
-                "Home X-Ray in Govindpuri",
-                "Home X-Ray in CR Park",
-                "Home X-Ray in Lajpat Nagar",
-                "Home X-Ray in Defence Colony",
-                "Home X-Ray in Ashram",
-                "Home X-Ray in Jangpura",
-                "Home X-Ray in Saket",
-                "Home X-Ray in Vasant Kunj",
-              ].map((area) => (
-                <li key={area} className="border-b border-gray-700/40 pb-2">
-                  <a href="#service-areas" className="hover:text-blue-400 transition-colors block text-gray-300">
-                    {area}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4: Contact Us */}
-          <div>
-            <div className="mb-5 sm:mb-6">
-              <h3 className="text-white font-bold text-base sm:text-lg pb-1.5 relative inline-block">
-                Contact Us
-                <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-blue-500 rounded-full" />
-              </h3>
-            </div>
-
-            <div className="space-y-3.5 sm:space-y-4 text-xs">
-              {/* Address 1: Main Location Delhi */}
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded border border-gray-600 bg-gray-800/80 flex items-center justify-center shrink-0 mt-0.5 text-blue-400">
-                  <MapPinIcon className="w-4 h-4" />
-                </div>
-                <div className="leading-relaxed">
-                  <span className="text-white font-semibold">Main HQ:</span> Roxy Chowk, Lajpat Nagar 2, New Delhi - 110024
-                </div>
-              </div>
-
-              {/* Address 2: Sonia Vihar */}
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded border border-gray-600 bg-gray-800/80 flex items-center justify-center shrink-0 mt-0.5 text-blue-400">
-                  <MapPinIcon className="w-4 h-4" />
-                </div>
-                <div className="leading-relaxed">
-                  <span className="text-white font-semibold">Address:</span> 5th Pusta, Sonia Vihar, New Delhi - 110094
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded border border-gray-600 bg-gray-800/80 flex items-center justify-center shrink-0 text-blue-400">
-                  <PhoneIcon className="w-4 h-4" />
-                </div>
-                <a
-                  href="tel:+919205761556"
-                  className="text-white font-bold text-xs sm:text-sm hover:text-blue-400 transition-colors"
-                >
-                  9205761556
-                </a>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded border border-gray-600 bg-gray-800/80 flex items-center justify-center shrink-0 text-blue-400">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect width="20" height="16" x="2" y="4" rx="2" />
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                  </svg>
-                </div>
-                <a
-                  href="mailto:Xrayoncall16@gmail.com"
-                  className="text-gray-300 hover:text-blue-400 transition-colors break-all"
-                >
-                  Xrayoncall16@gmail.com
-                </a>
-              </div>
-
-              {/* Social Media Links */}
-              <div className="pt-2 sm:pt-3">
-                <p className="text-[11px] text-gray-400 mb-2 font-medium uppercase tracking-wider">Connect With Us</p>
-                <div className="flex items-center gap-2">
-                  {[
-                    {
-                      name: "Facebook",
-                      icon: <span className="font-bold text-xs">f</span>,
-                    },
-                    {
-                      name: "Twitter",
-                      icon: (
-                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                      ),
-                    },
-                    {
-                      name: "Instagram",
-                      icon: (
-                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                        </svg>
-                      ),
-                    },
-                    {
-                      name: "LinkedIn",
-                      icon: <span className="font-bold text-xs lowercase">in</span>,
-                    },
-                    {
-                      name: "YouTube",
-                      icon: (
-                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                        </svg>
-                      ),
-                    },
-                  ].map((social) => (
-                    <a
-                      key={social.name}
-                      href="#"
-                      className="w-8 h-8 rounded-full border border-gray-600 bg-gray-800/80 flex items-center justify-center text-gray-300 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-all shadow-xs"
-                      aria-label={social.name}
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* ── Sub-footer / Disclaimer Bar ── */}
-      <div className="bg-[#1b1b1b] py-5 sm:py-6 px-4 text-center text-xs text-gray-500">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <p>
-            © 2026 XrayOnCall. All rights reserved. Doorstep Portable X-Ray in Delhi, Gurgaon, Noida &amp; NCR.
-          </p>
-          <div className="flex items-center justify-center gap-4 text-gray-400">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <span>•</span>
-            <a href="#" className="hover:text-white transition-colors">Terms & Conditions</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 // ─── FLOATING RIGHT STRIP ──────────────────────────────────────────────────────
 function FloatingRightStrip() {
   return (
@@ -1710,7 +1426,9 @@ export default function Home() {
       <FloatingRightStrip />
       <Navbar onBookClick={() => handleOpenBooking()} />
       <HeroSection onBookClick={() => handleOpenBooking()} />
+      <MarqueeStrip />
       <TrustBar />
+      <MarqueeStripReverse />
       <ServicesSection onBookClick={(scan) => handleOpenBooking(scan)} />
       <HowItWorks />
       <ServiceLocations onBookClick={() => handleOpenBooking()} />
